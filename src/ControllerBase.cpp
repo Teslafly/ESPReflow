@@ -34,6 +34,31 @@ ControllerBase::ControllerBase(Config& cfg) :
 	pidTemperature.SetOutputLimits(0, 1);
 #ifdef TEMPERATURE_SENSOR_MAX31855
 	thermocouple.begin();
+#elif defined TEMPERATURE_SENSOR_MAX31850
+	// #define onewirepullup_pin 13 // connect pullup to this pin instead of 3.3v. prevents strapping issues on boot with esp.
+	pinMode(onewirepullup_pin, OUTPUT);
+	digitalWrite(onewirepullup_pin, HIGH); 
+  	delay(100);
+	
+	S_printf("found %f onewire thermocouples\n", sensors.getDeviceCount());
+
+	#ifdef defined onewire_thermocouple1_address
+	// use afddress if defined. otherwise choose the first device
+		thermocouple1 = onewire_thermocouple1_address;
+	#else
+		if (!sensors.getAddress(thermocouple1, 0)) {
+			S_printf("Unable to find address for onewire Device 0"); 
+		}
+
+		// print the device address so we can add to code
+		// for (uint8_t i = 0; i < 8; i++)
+		// {
+		// 	if (deviceAddress[i] < 16) Serial.print("0");
+		// 	Serial.print(thermocouple1[i], HEX);
+		// }
+		// }
+	#endif
+
 #endif
 #ifdef PCA9536_SDA
 	Wire.begin(PCA9536_SDA, PCA9536_SCL);
@@ -144,6 +169,16 @@ float ControllerBase::_read_temperature(){
 	return thermocouple.getTemperature();
 #elif defined TEMPERATURE_SENSOR_MAX6675
 	return thermocouple.readCelsius();
+#elif defined TEMPERATURE_SENSOR_MAX31850
+	// onewire read
+	return 35.0;
+	sensors.requestTemperatures();
+	float tempC = sensors.getTempC(deviceAddress);
+	if(tempC == -127.00){
+		callMessage("WARNING: onewire thermocouple has invalid reading");
+		return;
+	}
+	return tempc;
 #endif
 }
 

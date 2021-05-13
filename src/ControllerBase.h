@@ -24,6 +24,11 @@
 #include "Config.h"
 #include <PID_AutoTune_v0.h>  // https://github.com/t0mpr1c3/Arduino-PID-AutoTune-Library
 
+#define TEMPERATURE_SENSOR_MAX31850
+#define onewirepullup_pin 13
+#define thermo_onewire_data 2
+// #define onewire_thermocouple1_address { 0x28, 0x1D, 0x39, 0x31, 0x2, 0x0, 0x0, 0xF0 }
+// #define onewire_thermocouple2_address { 0x28, 0x1D, 0x39, 0x31, 0x2, 0x0, 0x0, 0xF0 }
 #define thermoDO 12 // D7
 #define thermoCS 13 // D6
 #define thermoCLK 14 // D5
@@ -49,9 +54,12 @@
 #define WATCHDOG_TIMEOUT 30000
 
 #ifdef TEMPERATURE_SENSOR_MAX31855
-#include <MAX31855.h>
+	#include <MAX31855.h>
 #elif defined TEMPERATURE_SENSOR_MAX6675
-#include <max6675.h>
+	#include <max6675.h>
+#elif defined TEMPERATURE_SENSOR_MAX31850
+	#include <OneWire.h>
+	#include <DallasTemperature.h>
 #else
 #error No sensor type defined. Please define one in platformio.ini
 #endif
@@ -167,7 +175,14 @@ private:
 	MAX31855 thermocouple;
 #elif defined TEMPERATURE_SENSOR_MAX6675
 	MAX6675 thermocouple;
+#elif defined TEMPERATURE_SENSOR_MAX31850
+	// Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
+	OneWire oneWire(thermo_onewire_data);	
+	DallasTemperature sensors(&oneWire);
+	DeviceAddress thermocouple1;
+	// DeviceAddress thermocouple2;
 #endif
+
 	bool _locked;
 	bool _heater;
 	bool _last_heater;
