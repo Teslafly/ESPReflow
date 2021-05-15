@@ -149,6 +149,10 @@ void ControllerBase::loop(unsigned long now)
 				callMessage("INFO: Temperature has reached safe levels (<%.2f*C). Max temperature: %.2f", (float)SAFE_TEMPERATURE, (float)_CALIBRATE_max_temperature);
 				mode(OFF);
 			}
+			break;
+		case UNKNOWN: // should never be here
+			_heater = false;
+			break;
 	}
 
 	handle_mode(now);
@@ -238,8 +242,9 @@ const char * ControllerBase::translate_mode(MODE_t mode)
 		case ERROR_OFF: return  "Error"; break;
 		case REFLOW: return  "Reflow"; break;
 		case REFLOW_COOL: return  "Cooldown"; break;
+		case UNKNOWN: return  "Error"; break;
 	}
-	return "badstate";
+	return  "Error";
 }
 
 ControllerBase::Temperature_t ControllerBase::temperature_to_log(float t) {
