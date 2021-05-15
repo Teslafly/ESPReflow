@@ -70,6 +70,17 @@ In this mode the controller will reach and maintain target temperature. Useful t
 # Flashing
 
 There are two ways to flash the controller - via serial or via OTA.
+be aware that you have to flash both the firmware and spiffs filesystem.
+aka, use platformio "general/upload and platform/upload filesystem image
+
+to program:
+1. edit wificcocnfig.h with your wifi cradentials
+2. platformio -> default (or esp82666_cpu) -> general -> upload
+3. platformio -> default (or esp82666_cpu) -> platform -> upload filesystem image
+4. (optional) platformio -> default (or esp82666_cpu) -> general -> monitor.
+    * you should see prifiles loaded, wifi cconnection info, and that the server has started.
+    if you get a mess along the lines of SPIFFS not found, you need to upload the filesystem imagge.
+
 
 ## Serial
 
