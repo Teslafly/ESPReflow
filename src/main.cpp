@@ -171,6 +171,9 @@ void setup() {
 	SPIFFS.begin();
 	config.load_config();
 	config.load_profiles();
+
+	WiFi.begin(WIFI_SSID, WIFI_PASSWORD); 
+
 	config.setup_OTA();
 
 	server.addHandler(&ws);
