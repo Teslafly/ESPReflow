@@ -25,9 +25,9 @@
 #include <PID_AutoTune_v0.h>  // https://github.com/t0mpr1c3/Arduino-PID-AutoTune-Library
 
 // selecct one temperature sensor type
+#define TEMPERATURE_SENSOR_MAX6675
+// #define TEMPERATURE_SENSOR_MAX31855
 // #define TEMPERATURE_SENSOR_MAX31850
-// #define TEMPERATURE_SENSOR_MAX6675
-#define TEMPERATURE_SENSOR_MAX31855
 
 
 #define onewirepullup_pin 13

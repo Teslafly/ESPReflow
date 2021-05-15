@@ -18,9 +18,9 @@
 #include "ControllerBase.h"
 
 ControllerBase::ControllerBase(Config& cfg) :
-	config(cfg),
 	pidTemperature(&_temperature, &_target_control, &_target, .5/DEFAULT_TEMP_RISE_AFTER_OFF, 5.0/DEFAULT_TEMP_RISE_AFTER_OFF, 4/DEFAULT_TEMP_RISE_AFTER_OFF, DIRECT),
 	aTune(&_temperature, &_target_control, &_target, &_now, DIRECT),
+	config(cfg),
 	thermocouple(thermoCLK, thermoCS, thermoDO)
 {
 	_readings.reserve(15 * 60);
@@ -386,8 +386,8 @@ return;
 }
 
 void ControllerBase::handle_pid(unsigned long now) {
-	_heater = now - last_m < config.measureInterval * _target_control && _target_control > CONTROL_HYSTERISIS ||
-					now - last_m >= config.measureInterval * _target_control && _target_control > 1.0-CONTROL_HYSTERISIS;
+	_heater = ((now - last_m) < (config.measureInterval * _target_control) && _target_control > CONTROL_HYSTERISIS) ||
+					((now - last_m) >= (config.measureInterval * _target_control) && _target_control > 1.0 - CONTROL_HYSTERISIS);
 }
 
 void ControllerBase::handle_calibration(unsigned long now) {
