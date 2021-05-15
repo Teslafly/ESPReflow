@@ -98,7 +98,8 @@ ControllerBase::ControllerBase(Config& cfg) :
 	pinMode(BUZZER_A, OUTPUT);
 	pinMode(BUZZER_B, OUTPUT);
 
-	tone(BUZZER_A, 440, 100);
+	// tone(BUZZER_A, 440, 100);
+	// tone(BUZZER_PIN, NOTE_C4, 500, BUZZER_CHANNEL); // esp32
 
 	setPID("default");
 
