@@ -24,22 +24,31 @@
 #include "Config.h"
 #include <PID_AutoTune_v0.h>  // https://github.com/t0mpr1c3/Arduino-PID-AutoTune-Library
 
-#define TEMPERATURE_SENSOR_MAX31850
+// selecct one temperature sensor type
+// #define TEMPERATURE_SENSOR_MAX31850
+// #define TEMPERATURE_SENSOR_MAX6675
+#define TEMPERATURE_SENSOR_MAX31855
+
+
 #define onewirepullup_pin 13
 #define thermo_onewire_data 2
 // #define onewire_thermocouple1_address { 0x28, 0x1D, 0x39, 0x31, 0x2, 0x0, 0x0, 0xF0 }
 // #define onewire_thermocouple2_address { 0x28, 0x1D, 0x39, 0x31, 0x2, 0x0, 0x0, 0xF0 }
-#define thermoDO 12 // D7
-#define thermoCS 13 // D6
-#define thermoCLK 14 // D5
-#define RELAY 3
-#define LED_RED 0
-#define LED_GREEN 1
-#define LED_BLUE 2
-#define BUZZER_A 5
-#define BUZZER_B 4
-#define PCA9536_SDA 2
-#define PCA9536_SCL 0
+
+#define thermoDO 36 // D7
+#define thermoCS 37 // D6
+#define thermoCLK 38 // D5
+
+#define RELAY_HEATER_TOP 27
+#define RELAY_HEATER_BOTTOM 27
+#define RELAY_CONVECTION_FAN 27
+#define LED_RED 12
+#define LED_GREEN -1
+#define LED_BLUE -1
+#define BUZZER_A -1
+#define BUZZER_B -1
+// #define PCA9536_SDA 2
+// #define PCA9536_SCL 0
 
 #define DEFAULT_TARGET 60
 #define MAX_ON_TIME 1000 * 60 * 2

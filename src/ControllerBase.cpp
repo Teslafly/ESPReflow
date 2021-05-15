@@ -64,12 +64,12 @@ ControllerBase::ControllerBase(Config& cfg) :
 	Wire.begin(PCA9536_SDA, PCA9536_SCL);
 	pca9536.begin(Wire);
 #endif
-	_setPinMode(RELAY, OUTPUT);
+	_setPinMode(RELAY_HEATER_TOP, OUTPUT);
 	_setPinMode(LED_RED, OUTPUT);
 	_setPinMode(LED_GREEN, OUTPUT);
 	_setPinMode(LED_BLUE, OUTPUT);
 
-	_setPinValue(RELAY, LOW);
+	_setPinValue(RELAY_HEATER_TOP, LOW);
 	_setPinValue(LED_RED, LOW);
 	_setPinValue(LED_GREEN, LOW);
 	_setPinValue(LED_BLUE, LOW);
@@ -155,7 +155,7 @@ void ControllerBase::loop(unsigned long now)
 
 	handle_safety(now);
 
-	_setPinValue(RELAY, _heater);
+	_setPinValue(RELAY_HEATER_TOP, _heater);
 	_setPinValue(LED_RED, _heater);
 
 	if (_onHeater && _heater != _last_heater)
@@ -171,7 +171,7 @@ float ControllerBase::_read_temperature(){
 	return thermocouple.readCelsius();
 #elif defined TEMPERATURE_SENSOR_MAX31850
 	// onewire read
-	return 35.0;
+	// return 35.0;
 	sensors.requestTemperatures();
 	float tempC = sensors.getTempC(deviceAddress);
 	if(tempC == -127.00){
@@ -239,6 +239,7 @@ const char * ControllerBase::translate_mode(MODE_t mode)
 		case REFLOW: return  "Reflow"; break;
 		case REFLOW_COOL: return  "Cooldown"; break;
 	}
+	return "badstate";
 }
 
 ControllerBase::Temperature_t ControllerBase::temperature_to_log(float t) {
