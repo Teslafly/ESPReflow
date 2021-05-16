@@ -32,7 +32,6 @@
 #include <ArduinoJson.h>
 #include <EasyOTA.h>
 #include <map>
-#include "wificonfig.h"
 
 class Config {
 public:
