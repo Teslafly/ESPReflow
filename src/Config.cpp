@@ -164,13 +164,7 @@ bool Config::setup_OTA() {
 
 	OTA = new EasyOTA(hostname);
 
-	std::map<String, String>::iterator I = networks.begin();
-	while (I != networks.end()) {
-		OTA->addAP(I->first, I->second);
-		Serial.println("Add network: " + I->first);
-		I++;
-	}
-
+	// ota debug callbacks
 	OTA->onConnect([](const String& ssid, EasyOTA::STATE state) {
 		S_printf("Connected %s, state: %s", ssid.c_str(), state == EasyOTA::EOS_STA ? "Station" : "Access Point");
 	});
@@ -178,6 +172,19 @@ bool Config::setup_OTA() {
 	OTA->onMessage([](const String& msg, int line) {
 		S_printf("OTA message: %s", msg.c_str());
 	});
+
+	// todo, add default wifi network to json file instead.
+	OTA->addAP(WIFI_SSID, WIFI_PASSWORD);
+
+	std::map<String, String>::iterator I = networks.begin();
+	while (I != networks.end()) {
+		OTA->addAP(I->first, I->second);
+		Serial.println("Add network: " + I->first);
+		I++;
+	}
+
+	Serial.println("OTA setup done");
+	return true;
 }
 
 bool Config::save_config(AsyncWebServerRequest *request, uint8_t * data, size_t len, size_t index, size_t total) {

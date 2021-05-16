@@ -167,12 +167,15 @@ void send_data(AsyncWebSocketClient * client)
 
 void setup() {
 	Serial.begin(115200);
+	Serial.printf("starting reflow oven controller\n");
 
 	SPIFFS.begin();
 	config.load_config();
 	config.load_profiles();
 
-	WiFi.begin(WIFI_SSID, WIFI_PASSWORD); 
+    // WiFi.mode(WIFI_STA);
+	// WiFi.begin(WIFI_SSID, WIFI_PASSWORD); 
+	WiFi.begin();
 
 	config.setup_OTA();
 
