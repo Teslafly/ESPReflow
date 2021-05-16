@@ -173,8 +173,6 @@ bool Config::setup_OTA() {
 		S_printf("OTA message: %s", msg.c_str());
 	});
 
-	// todo, add default wifi network to json file instead.
-	OTA->addAP(WIFI_SSID, WIFI_PASSWORD);
 
 	std::map<String, String>::iterator I = networks.begin();
 	while (I != networks.end()) {
