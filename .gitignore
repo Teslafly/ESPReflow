@@ -41,3 +41,6 @@
 wificonfig.h
 web-src-angular/node_modules/*
 web-src-angular/node_modules
+
+# don't accedentally commit your wifi info
+data/config.json

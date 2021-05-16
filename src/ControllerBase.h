@@ -25,8 +25,8 @@
 #include <PID_AutoTune_v0.h>  // https://github.com/t0mpr1c3/Arduino-PID-AutoTune-Library
 
 // selecct one temperature sensor type
-#define TEMPERATURE_SENSOR_MAX6675
-// #define TEMPERATURE_SENSOR_MAX31855
+// #define TEMPERATURE_SENSOR_MAX6675
+#define TEMPERATURE_SENSOR_MAX31855
 // #define TEMPERATURE_SENSOR_MAX31850
 
 
@@ -40,9 +40,9 @@
 #define thermoCLK 38 // D5
 
 #define RELAY_HEATER_TOP 27
-#define RELAY_HEATER_BOTTOM 27
-#define RELAY_CONVECTION_FAN 27
-#define LED_RED 12
+#define RELAY_HEATER_BOTTOM 26
+#define RELAY_CONVECTION_FAN 25
+#define LED_RED -1
 #define LED_GREEN -1
 #define LED_BLUE -1
 #define BUZZER_A -1
@@ -70,7 +70,7 @@
 	#include <OneWire.h>
 	#include <DallasTemperature.h>
 #else
-#error No sensor type defined. Please define one in platformio.ini
+	#error No sensor type defined. Please define one in platformio.ini
 #endif
 
 #define CB_GETTER(T, name) virtual T name() { return _##name; }

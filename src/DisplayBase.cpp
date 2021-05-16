@@ -18,7 +18,7 @@
 #include "DisplayBase.h"
 
 
-TFT_eSPI tft = TFT_eSPI(135, 240); // Invoke custom library
+TFT_eSPI tft = TFT_eSPI(135, 240); // init display
 Button2 btn1(BUTTON_1);
 Button2 btn2(BUTTON_2);
 int btnCick = false;
@@ -29,6 +29,6 @@ void setupDisplay(){
     tft.fontHeight(2);
     tft.setRotation(1);
     tft.fillScreen(TFT_BLACK);
-    tft.drawString("Hello world", tft.width()/4, tft.height() / 2, 4);  //string,start x,start y, font weight {1;2;4;6;7;8}
-
+    tft.drawString("Reflow oven", tft.width()/4, (tft.height() / 2) - (tft.height() / 4), 4);  //string,start x,start y, font weight {1;2;4;6;7;8}
+	tft.drawString("controller", tft.width()/4, (tft.height() / 2) + (tft.height() / 4)*0, 4);  //string,start x,start y, font weight {1;2;4;6;7;8}
 }
