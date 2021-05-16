@@ -22,6 +22,7 @@
 #include <ArduinoJson.h>
 #include "AsyncJson.h"
 #include "Config.h"
+#include "DisplayBase.h"
 
 AsyncWebServer server(80);
 AsyncWebSocket ws("/ws");
@@ -168,6 +169,8 @@ void send_data(AsyncWebSocketClient * client)
 void setup() {
 	Serial.begin(115200);
 	Serial.printf("starting reflow oven controller\n");
+
+	setupDisplay();
 
 	SPIFFS.begin();
 	config.load_config();
