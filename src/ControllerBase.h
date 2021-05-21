@@ -24,6 +24,10 @@
 #include "Config.h"
 #include <PID_AutoTune_v0.h>  // https://github.com/t0mpr1c3/Arduino-PID-AutoTune-Library
 
+// select one temperature sensor type
+#define TEMPERATURE_SENSOR_MAX6675
+// #define TEMPERATURE_SENSOR_MAX31855
+
 #define thermoDO 12 // D7
 #define thermoCS 13 // D6
 #define thermoCLK 14 // D5
