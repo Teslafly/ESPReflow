@@ -167,6 +167,7 @@ void send_data(AsyncWebSocketClient * client)
 
 void setup() {
 	Serial.begin(115200);
+	WiFi.begin(); // needed for esp32
 
 	SPIFFS.begin();
 	config.load_config();

@@ -23,6 +23,13 @@
 #include <EasyOTA.h>
 #include <map>
 
+#if defined(ESP8266)
+#include <ESPAsyncTCP.h>
+#elif defined(ESP32)
+#include <AsyncTCP.h>
+#include "SPIFFS.h"
+#endif
+
 class Config {
 public:
 	typedef struct {
