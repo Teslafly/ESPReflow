@@ -42,19 +42,19 @@ ControllerBase::ControllerBase(Config& cfg) :
 	_setPinMode(RELAY, OUTPUT);
 	_setPinValue(RELAY, LOW);
 	
-	// _setPinMode(LED_RED, OUTPUT);
+	_setPinMode(LED_RED, OUTPUT);
+	_setPinValue(LED_RED, LOW);
 	// _setPinMode(LED_GREEN, OUTPUT);
-	// _setPinMode(LED_BLUE, OUTPUT);
-	// _setPinValue(LED_RED, LOW);
 	// _setPinValue(LED_GREEN, LOW);
+	// _setPinMode(LED_BLUE, OUTPUT);
 	// _setPinValue(LED_BLUE, LOW);
-	// _setPinValue(LED_RED, HIGH);
-	// delay(100);
+	_setPinValue(LED_RED, HIGH);
+	delay(100);
 	// _setPinValue(LED_GREEN, HIGH);
 	// delay(100);
 	// _setPinValue(LED_BLUE, HIGH);
 	// delay(100);
-	// _setPinValue(LED_RED, LOW);
+	_setPinValue(LED_RED, LOW);
 	// _setPinValue(LED_GREEN, LOW);
 	// _setPinValue(LED_BLUE, LOW);
 
@@ -70,10 +70,12 @@ ControllerBase::ControllerBase(Config& cfg) :
 
 	_heater = _last_heater = false;
 
-	// pinMode(BUZZER_A, OUTPUT);
-	// pinMode(BUZZER_B, OUTPUT);
+#if defined(ESP8266)
+	pinMode(BUZZER_A, OUTPUT);
+	pinMode(BUZZER_B, OUTPUT);
 
-	// tone(BUZZER_A, 440, 100);
+	tone(BUZZER_A, 440, 100);
+#endif
 
 	setPID("default");
 
