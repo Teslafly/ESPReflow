@@ -1,5 +1,6 @@
 {
 	"networks": {
+		"MoarBoosters":"BiggerBetterBatteries",
 		"wifi-ssid":"wifi-password"
 	},
 	"hostname": "ESPReflow",
