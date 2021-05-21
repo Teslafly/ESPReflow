@@ -28,13 +28,13 @@
 #define thermoCS 13 // D6
 #define thermoCLK 14 // D5
 #define RELAY 3
-#define LED_RED 0
-#define LED_GREEN 1
-#define LED_BLUE 2
-#define BUZZER_A 5
-#define BUZZER_B 4
-#define PCA9536_SDA 2
-#define PCA9536_SCL 0
+// #define LED_RED 0
+// #define LED_GREEN 1
+// #define LED_BLUE 2
+// #define BUZZER_A 5
+// #define BUZZER_B 4
+// #define PCA9536_SDA 2
+// #define PCA9536_SCL 0
 
 #define DEFAULT_TARGET 60
 #define MAX_ON_TIME 1000 * 60 * 2

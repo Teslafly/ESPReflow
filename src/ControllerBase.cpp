@@ -40,11 +40,11 @@ ControllerBase::ControllerBase(Config& cfg) :
 	pca9536.begin(Wire);
 #endif
 	_setPinMode(RELAY, OUTPUT);
-	_setPinMode(LED_RED, OUTPUT);
-	_setPinMode(LED_GREEN, OUTPUT);
-	_setPinMode(LED_BLUE, OUTPUT);
-
 	_setPinValue(RELAY, LOW);
+	
+	// _setPinMode(LED_RED, OUTPUT);
+	// _setPinMode(LED_GREEN, OUTPUT);
+	// _setPinMode(LED_BLUE, OUTPUT);
 	// _setPinValue(LED_RED, LOW);
 	// _setPinValue(LED_GREEN, LOW);
 	// _setPinValue(LED_BLUE, LOW);
@@ -131,7 +131,7 @@ void ControllerBase::loop(unsigned long now)
 	handle_safety(now);
 
 	_setPinValue(RELAY, _heater);
-	_setPinValue(LED_RED, _heater);
+	// _setPinValue(LED_RED, _heater);
 
 	if (_onHeater && _heater != _last_heater)
 		_onHeater(_heater);
