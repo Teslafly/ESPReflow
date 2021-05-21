@@ -57,7 +57,7 @@
 #elif defined TEMPERATURE_SENSOR_MAX6675
 #include <max6675.h>
 #else
-#error No sensor type defined. Please define one in platformio.ini
+#error No sensor type defined. Please define one
 #endif
 
 #define CB_GETTER(T, name) virtual T name() { return _##name; }
