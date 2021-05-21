@@ -45,18 +45,18 @@ ControllerBase::ControllerBase(Config& cfg) :
 	_setPinMode(LED_BLUE, OUTPUT);
 
 	_setPinValue(RELAY, LOW);
-	_setPinValue(LED_RED, LOW);
-	_setPinValue(LED_GREEN, LOW);
-	_setPinValue(LED_BLUE, LOW);
-	_setPinValue(LED_RED, HIGH);
-	delay(100);
-	_setPinValue(LED_GREEN, HIGH);
-	delay(100);
-	_setPinValue(LED_BLUE, HIGH);
-	delay(100);
-	_setPinValue(LED_RED, LOW);
-	_setPinValue(LED_GREEN, LOW);
-	_setPinValue(LED_BLUE, LOW);
+	// _setPinValue(LED_RED, LOW);
+	// _setPinValue(LED_GREEN, LOW);
+	// _setPinValue(LED_BLUE, LOW);
+	// _setPinValue(LED_RED, HIGH);
+	// delay(100);
+	// _setPinValue(LED_GREEN, HIGH);
+	// delay(100);
+	// _setPinValue(LED_BLUE, HIGH);
+	// delay(100);
+	// _setPinValue(LED_RED, LOW);
+	// _setPinValue(LED_GREEN, LOW);
+	// _setPinValue(LED_BLUE, LOW);
 
 	_mode = _last_mode = INIT;
 	_temperature = 0;
@@ -70,10 +70,10 @@ ControllerBase::ControllerBase(Config& cfg) :
 
 	_heater = _last_heater = false;
 
-	pinMode(BUZZER_A, OUTPUT);
-	pinMode(BUZZER_B, OUTPUT);
+	// pinMode(BUZZER_A, OUTPUT);
+	// pinMode(BUZZER_B, OUTPUT);
 
-	tone(BUZZER_A, 440, 100);
+	// tone(BUZZER_A, 440, 100);
 
 	setPID("default");
 
