@@ -18,9 +18,9 @@
 #include "ControllerBase.h"
 
 ControllerBase::ControllerBase(Config& cfg) :
-	config(cfg),
 	pidTemperature(&_temperature, &_target_control, &_target, .5/DEFAULT_TEMP_RISE_AFTER_OFF, 5.0/DEFAULT_TEMP_RISE_AFTER_OFF, 4/DEFAULT_TEMP_RISE_AFTER_OFF, DIRECT),
 	aTune(&_temperature, &_target_control, &_target, &_now, DIRECT),
+	config(cfg),
 	thermocouple(thermoCLK, thermoCS, thermoDO)
 {
 	_readings.reserve(15 * 60);
@@ -124,6 +124,10 @@ void ControllerBase::loop(unsigned long now)
 				callMessage("INFO: Temperature has reached safe levels (<%.2f*C). Max temperature: %.2f", (float)SAFE_TEMPERATURE, (float)_CALIBRATE_max_temperature);
 				mode(OFF);
 			}
+			break;
+		case UNKNOWN: // should never be here
+			_heater = false;
+			break;
 	}
 
 	handle_mode(now);
@@ -203,7 +207,9 @@ const char * ControllerBase::translate_mode(MODE_t mode)
 		case ERROR_OFF: return  "Error"; break;
 		case REFLOW: return  "Reflow"; break;
 		case REFLOW_COOL: return  "Cooldown"; break;
+		case UNKNOWN: return  "Error"; break;
 	}
+	return  "Error";
 }
 
 ControllerBase::Temperature_t ControllerBase::temperature_to_log(float t) {
@@ -350,8 +356,8 @@ return;
 }
 
 void ControllerBase::handle_pid(unsigned long now) {
-	_heater = now - last_m < config.measureInterval * _target_control && _target_control > CONTROL_HYSTERISIS ||
-					now - last_m >= config.measureInterval * _target_control && _target_control > 1.0-CONTROL_HYSTERISIS;
+	_heater = ((now - last_m) < (config.measureInterval * _target_control) && _target_control > CONTROL_HYSTERISIS) ||
+					((now - last_m) >= (config.measureInterval * _target_control) && _target_control > 1.0 - CONTROL_HYSTERISIS);
 }
 
 void ControllerBase::handle_calibration(unsigned long now) {
