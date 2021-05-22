@@ -27,10 +27,10 @@
 #define thermoCS 13 // D6
 #define thermoCLK 15 // D5
 
-#define RELAY_HEATER_TOP 3
-#define RELAY_HEATER_BOTTOM -1
-#define RELAY_CONV_FAN -1
-#define LED_RED 0
+#define RELAY_HEATER_TOP 27
+#define RELAY_HEATER_BOTTOM 26
+#define RELAY_CONV_FAN 25
+#define LED_RED -1
 // #define LED_GREEN 1
 // #define LED_BLUE 2
 #define BUZZER_A 5
