@@ -21,7 +21,7 @@ ControllerBase::ControllerBase(Config& cfg) :
 	pidTemperature(&_temperature, &_target_control, &_target, .5/DEFAULT_TEMP_RISE_AFTER_OFF, 5.0/DEFAULT_TEMP_RISE_AFTER_OFF, 4/DEFAULT_TEMP_RISE_AFTER_OFF, DIRECT),
 	aTune(&_temperature, &_target_control, &_target, &_now, DIRECT),
 	config(cfg),
-	thermocouple(thermoCLK, thermoCS, thermoDO)
+	thermocouple()
 {
 	_readings.reserve(15 * 60);
 
@@ -32,9 +32,6 @@ ControllerBase::ControllerBase(Config& cfg) :
 	pidTemperature.SetSampleTime(config.measureInterval * 1000);
 	pidTemperature.SetMode(AUTOMATIC);
 	pidTemperature.SetOutputLimits(0, 1);
-#ifdef TEMPERATURE_SENSOR_MAX31855
-	thermocouple.begin();
-#endif
 #ifdef PCA9536_SDA
 	Wire.begin(PCA9536_SDA, PCA9536_SCL);
 	pca9536.begin(Wire);
@@ -136,7 +133,7 @@ void ControllerBase::loop(unsigned long now)
 			mode(OFF);
 			break;
 	}
-
+	
 	handle_mode(now);
 
 	handle_safety(now);
@@ -150,7 +147,7 @@ void ControllerBase::loop(unsigned long now)
 	_last_heater = _heater;
 
 	// of not in off mode, turn on conv fan
-	if (_mode == ERROR_OFF  | _mode == OFF){
+	if ((_mode == ERROR_OFF) | (_mode == OFF)){
 		_setPinValue(RELAY_CONV_FAN, LOW);
 	} else {
 		_setPinValue(RELAY_CONV_FAN, HIGH);
@@ -159,12 +156,8 @@ void ControllerBase::loop(unsigned long now)
 }
 
 float ControllerBase::_read_temperature(){
-#ifdef TEMPERATURE_SENSOR_MAX31855
-	thermocouple.read();
-	return thermocouple.getTemperature();
-#elif defined TEMPERATURE_SENSOR_MAX6675
-	return thermocouple.readCelsius();
-#endif
+	return thermocouple.read_temperature();
+
 }
 
 void ControllerBase::_setPinMode(int pin, int mode){
