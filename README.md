@@ -49,8 +49,18 @@ they should be gzipped and copied into `data/web` folder before uploading.
 
 ### Backend
 
-Backend is implemented using Arduino SDK and built using PlatformIO. Before building, please copy `src/sample_wificonfig.h`
-to `src/wificonfig.h` and add default Wireless Network configuration. You will be able to edit this configuration via Web interface later.
+Backend is implemented using Arduino SDK and built using PlatformIO.
+
+To upload, you need to both build/upload the firmware, and then upload the filesystem image. (data folder that contains webdataa and config)
+```
+PlatformIO -> [selected board] -> general -> upload
+PlatformIO -> [selected board] -> platform -> upload filesystem image
+```
+
+After upload, I recommend using PlatformIO -> [selected board] -> monitor to make sure the esp starts the server and get the ip address. If you see an error message like "spiffs not found", you need to upload the filesystem.
+
+Optional: 
+Before building, edit data/config.json with your wifi login. Replace `"wifi-ssid":"wifi-password"` with the correct info. This just allows you to skip the step of using the OTA wifi hotspot to configure the same info on the first boot. You will be able to edit this configuration via Web interface later as well.
 
 ## Modes of operation
 ### Reflow
