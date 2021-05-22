@@ -354,6 +354,7 @@ void ControllerBase::handle_safety(unsigned long now) {
 	if (now - _watchdog > WATCHDOG_TIMEOUT) {
 		mode(ERROR_OFF);
 		_heater = false;
+		callMessage("debug: now: %f, dog: %f", (float)now, (float)_watchdog);
 		callMessage("ERROR: Watchdog timeout. Check connectivity!");
 	}
 return;
