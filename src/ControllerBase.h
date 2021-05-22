@@ -31,7 +31,9 @@
 #define thermoDO 12 // D7
 #define thermoCS 13 // D6
 #define thermoCLK 14 // D5
-#define RELAY 3
+#define RELAY_HEATER_TOP 3
+#define RELAY_HEATER_BOTTOM -1
+#define RELAY_CONV_FAN -1
 #define LED_RED 0
 // #define LED_GREEN 1
 // #define LED_BLUE 2
