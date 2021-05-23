@@ -351,10 +351,11 @@ void ControllerBase::handle_safety(unsigned long now) {
 		callMessage("ERROR: Error reading temperature. Check the probe!");
 	}
 
-	if (now - _watchdog > WATCHDOG_TIMEOUT) {
+	// now and watchdog can be slightly out of sync, with one a few miliseconds ahead of the other.	take absolute
+	if (max(now, _watchdog) - min(now, _watchdog) > WATCHDOG_TIMEOUT) {
 		mode(ERROR_OFF);
 		_heater = false;
-		callMessage("debug: now: %f, dog: %f", (float)now, (float)_watchdog);
+		callMessage("debug: now: %f, dog: %f", ((float)now)/1000, ((float)_watchdog)/1000);
 		callMessage("ERROR: Watchdog timeout. Check connectivity!");
 	}
 return;
