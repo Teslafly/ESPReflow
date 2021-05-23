@@ -24,6 +24,9 @@
     #include <MAX31855.h>
 #elif defined TEMPERATURE_SENSOR_MAX6675
     #include <max6675.h>
+#elif defined TEMPERATURE_SENSOR_MAX31850
+    #include <OneWire.h>
+	#include <DallasTemperature.h>
 #else
     #error No sensor type defined. Please define one
 #endif
@@ -32,13 +35,19 @@
 class ThermocoupleBase {
 public:
     ThermocoupleBase(void);
-    float read_temperature(void);
+    float read_temperature();
 
 private:
     #ifdef TEMPERATURE_SENSOR_MAX31855
 	    MAX31855 thermocouple;
     #elif defined TEMPERATURE_SENSOR_MAX6675
 	    MAX6675 thermocouple;
+    #elif defined TEMPERATURE_SENSOR_MAX31850
+        // Setup a oneWire instance to communicate with any OneWire devices (not just Maxim/Dallas temperature ICs)
+        OneWire oneWire;	
+        DallasTemperature thermocouples;
+        DeviceAddress thermocouple1;
+        // DeviceAddress thermocouple2;
     #endif
 };
 

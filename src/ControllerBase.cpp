@@ -156,8 +156,9 @@ void ControllerBase::loop(unsigned long now)
 }
 
 float ControllerBase::_read_temperature(){
-	return thermocouple.read_temperature();
-
+	float thermocoupletemp = thermocouple.read_temperature();
+	// callMessage("thermocouple: %f C", thermocoupletemp);
+	return thermocoupletemp;
 }
 
 void ControllerBase::_setPinMode(int pin, int mode){

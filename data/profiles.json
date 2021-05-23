@@ -14,7 +14,7 @@
 			"cooldown": {"pid": "IRHotPlate", "target": 50, "rate": 2, "stay": 40}
 		},
 		"test-no-rate": {
-			"name": "Simple test profile",
+			"name": "Simple test no-rate profile",
 			"stages": ["preheat", "soak", "reflow", "cooldown"],
 			"preheat": {"pid": "IRHotPlate", "target": 40, "rate": 0, "stay": 40},
 			"soak": {"pid": "IRHotPlate", "target": 60, "rate": 0, "stay": 40},

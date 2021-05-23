@@ -19,13 +19,21 @@
 #define PINCONFIG_H
 
 // select one temperature sensor type
-#define TEMPERATURE_SENSOR_MAX6675
+// #define TEMPERATURE_SENSOR_MAX6675
 // #define TEMPERATURE_SENSOR_MAX31855
-// #define TEMPERATURE_SENSOR_MAX31850
+#define TEMPERATURE_SENSOR_MAX31850
 
+#if defined TEMPERATURE_SENSOR_MAX31855 | defined TEMPERATURE_SENSOR_MAX6675
 #define thermoDO 12 // D7
 #define thermoCS 13 // D6
 #define thermoCLK 15 // D5
+
+#elif defined TEMPERATURE_SENSOR_MAX31850
+#define onewirepullup_pin 13 // optional, connect the onewire 4.7k pullup to this pin instead of 3.3v to prevent esp strapping issues.
+#define thermo_onewire_dat 2
+// #define onewire_thermocouple1_address { 0x3B, 0x8F, 0x73, 0x18, 0x0, 0x0, 0x0, 0x6B } // 3B8F73180000006B
+// #define onewire_thermocouple2_address { 0x28, 0x1D, 0x39, 0x31, 0x2, 0x0, 0x0, 0xF0 }
+#endif
 
 #define RELAY_HEATER_TOP 27
 #define RELAY_HEATER_BOTTOM 26
